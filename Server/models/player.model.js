@@ -15,6 +15,10 @@ const playerSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    roundStatus: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

@@ -1,7 +1,7 @@
 const Game = require("../models/game.model");
 const Player = require("../models/player.model");
 
-exports.startGame = async () => {
+exports.startGame = async (data) => {
   const players = await Player.find();
 
   const roles = ["Raja", "Mantri", "Chor", "Sipahi"];
@@ -9,7 +9,11 @@ exports.startGame = async () => {
   if (players.length !== roles.length) {
     throw new Error("Exactly 4 players required");
   }
-
+   await Player.findByIdAndUpdate(
+  data.id,                         // player _id
+  { $set: { roundStatus: false } }, 
+  { new: true }
+);
   // prevent re-assigning roles
   const alreadyAssigned = players.some(p => p.role);
   if (alreadyAssigned) {
@@ -22,7 +26,6 @@ exports.startGame = async () => {
     {},                // no update, just ensure doc exists
     { upsert: true }
   );
-
   // shuffle roles
   for (let i = roles.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -42,4 +45,22 @@ exports.mantriAnswered = async (data) => {
   {},                         // match the first document
   { $set: { mantriAnswered: data.setBoolean } }
 );
+};
+
+exports.nextRoundClicked = async (data) => {
+  await Game.updateOne(
+    {},
+    { $set: { mantriAnswered: false } }
+  );
+  return await Player.findByIdAndUpdate(
+    data.id,
+    { $set: { roundStatus: true , role: ""} },
+    { new: true }
+  );
+};
+exports.getYourRole = async (data) => {
+  return await Player.findById(
+    data.id,
+    { role: 1 }   // projection → return only role
+  );
 };

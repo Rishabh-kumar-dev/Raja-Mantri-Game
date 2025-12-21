@@ -26,9 +26,9 @@ export const GameScreen = () => {
             console.log(error);
         }
     }
-    const handleButtonClicked = async () => {
+    const handleButtonClicked = async (bool) => {
         try {
-            const response = await callAPI(apiRoutes.mantriAnswered, 'POST',{"setBoolean": true});
+            const response = await callAPI(apiRoutes.mantriAnswered, 'POST',{answeredCorrectly:bool});
             console.log(response);
         } catch (error) {
             console.log(error); 
@@ -67,8 +67,8 @@ export const GameScreen = () => {
                 <div>
                     <p>Did Mantri answered correctly?</p>
                     <div>
-                        <button onClick={handleButtonClicked}>Yes</button>
-                        <button onClick={handleButtonClicked }>No</button>
+                        <button onClick={()=>{handleButtonClicked(true)}}>Yes</button>
+                        <button onClick={()=>{handleButtonClicked(false)}}>No</button>
                     </div>
                 </div>
             }

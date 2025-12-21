@@ -8,6 +8,7 @@ const apiRoutes = {
   mantriAnswered: `${API_BASE_URL}game/mantriAnswered`,
   didMantriAnswered: `${API_BASE_URL}game/didMantriAnswered`,
   playAgainClicked: `${API_BASE_URL}game/nextRoundClicked`,
+  getRoundsData: `${API_BASE_URL}game/rounds`,
 };
 
 export default apiRoutes;

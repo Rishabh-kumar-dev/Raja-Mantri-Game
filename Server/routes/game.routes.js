@@ -6,5 +6,6 @@ router.post("/mantriAnswered", gameController.mantriAnswered);
 router.get("/didMantriAnswered", gameController.didMantriAnswered);
 router.post("/nextRoundClicked", gameController.nextRoundClicked);
 router.post("/getYourRole", gameController.getYourRole);
+router.get("/rounds", gameController.getRoundsData);
 
 module.exports = router

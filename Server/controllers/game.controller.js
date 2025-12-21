@@ -40,3 +40,11 @@ exports.getYourRole = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+exports.getRoundsData = async (req, res) => {
+  try {
+    const mantriAnswered = await gameService.getAllRounds();
+    res.status(200).json(mantriAnswered);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

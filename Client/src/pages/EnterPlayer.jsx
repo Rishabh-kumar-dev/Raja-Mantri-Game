@@ -21,8 +21,9 @@ export const EnterPlayer = () => {
     }
     return (
         <div>
-            <form onSubmit={handleFormSubmit}>
+            <form onSubmit={handleFormSubmit} style={{display:"flex",flexDirection:"column",gap:"10px"}}>
                 <input type="text" placeholder="Enter Player Name" value={playerName} onChange={(e)=>{setPlayerName(e.target.value)}}></input>
+                <button type='submit'>Enter</button>
             </form>
         </div>
     )

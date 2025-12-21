@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import useAPI from '../../hooks/useAPI';
 import apiRoutes from '../apiroutes';
+import { useNavigate } from 'react-router-dom';
 
 export const GameScreen = () => {
     const { callAPI, loading, error } = useAPI();
+    const navigate = useNavigate();
     const [role, setRole] = useState('');
     const startGame = async () => {
         try {
@@ -33,8 +35,30 @@ export const GameScreen = () => {
         }
     }
     useEffect(()=>{
-        startGame();
+        const timeoutID = setTimeout(() => {
+            startGame()
+        }, 3000);
+        const intervalID = setInterval(() => {
+        didMantriAnswered();
+        }, 2000);
+        return () => {
+        clearTimeout(timeoutID);
+        clearInterval(intervalID)
+        console.log('All intervals cleared');
+        };
     },[])
+    const didMantriAnswered = async()=>{
+        try {
+            const response = await callAPI(apiRoutes.didMantriAnswered,'GET')
+            console.log(response)
+            if(response.data.mantriAnswered)
+            {
+                navigate("/scores")
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
     return (
         <>
             <div>GameScreen</div>
@@ -43,8 +67,8 @@ export const GameScreen = () => {
                 <div>
                     <p>Did Mantri answered correctly?</p>
                     <div>
-                        <button >Yes</button>
-                        <button>No</button>
+                        <button onClick={handleButtonClicked}>Yes</button>
+                        <button onClick={handleButtonClicked }>No</button>
                     </div>
                 </div>
             }

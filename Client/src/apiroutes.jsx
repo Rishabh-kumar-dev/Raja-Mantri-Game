@@ -6,6 +6,8 @@ const apiRoutes = {
   startGame: `${API_BASE_URL}game/start`,
   getRole: `${API_BASE_URL}game/getYourRole`,
   mantriAnswered: `${API_BASE_URL}game/mantriAnswered`,
+  didMantriAnswered: `${API_BASE_URL}game/didMantriAnswered`,
+  playAgainClicked: `${API_BASE_URL}game/nextRoundClicked`,
 };
 
 export default apiRoutes;

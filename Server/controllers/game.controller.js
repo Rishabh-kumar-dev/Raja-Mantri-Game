@@ -8,6 +8,14 @@ exports.startGame = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+exports.didMantriAnswered = async (req, res) => {
+  try {
+    const mantriAnswered = await gameService.didMantriAnswered();
+    res.status(200).json(mantriAnswered);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 exports.mantriAnswered = async (req, res) => {
   try {
     const mantriAnswered = await gameService.mantriAnswered(req.body);

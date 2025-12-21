@@ -46,6 +46,14 @@ exports.mantriAnswered = async (data) => {
   { $set: { mantriAnswered: data.setBoolean } }
 );
 };
+exports.didMantriAnswered = async (data) => {
+  try {
+    const game = await Game.findOne(); // or findById if you have ID
+    return game;
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 
 exports.nextRoundClicked = async (data) => {
   await Game.updateOne(

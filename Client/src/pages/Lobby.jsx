@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useAPI from '../../hooks/useAPI';
 import apiRoutes from '../apiroutes';
 import { useNavigate } from 'react-router-dom';
+import styles from './Lobby.module.css'; // ✅ correct module import
 
 export const Lobby = () => {
   const navigate = useNavigate();
@@ -28,7 +29,6 @@ export const Lobby = () => {
       handleGetPlayers();
     }, 2000);
 
-    // ✅ Cleanup when leaving page
     return () => {
       clearInterval(intervalId);
       console.log('Lobby interval cleared');
@@ -36,24 +36,36 @@ export const Lobby = () => {
   }, []);
 
   // Navigate when game starts
+  useEffect(() => {
     if (
       players.length === 4 &&
       players.filter(player => player.roundStatus === true).length === 4
     ) {
       navigate('/game-screen');
     }
+  }, [players, navigate]);
+
+  const activePlayers = players.filter(
+    player => player.roundStatus === true
+  );
 
   return (
-    <div>
-      <h1>Lobby</h1>
+    <div className={styles.lobbyContainer}>
+      <h1 className={styles.lobbyTitle}>Lobby</h1>
 
-      {players
-        .filter(player => player.roundStatus === true)
-        .map(player => (
-          <div key={player.id}>{player.name}</div>
+      <ul className={styles.playerList}>
+        {activePlayers.map(player => (
+          <li key={player.id} className={styles.playerItem}>
+            {player.name}
+          </li>
         ))}
+      </ul>
 
-      {players.length !== 4 ? 'Waiting for players...' : 'Game Starting'}
+      <div className={styles.statusMessage}>
+        {players.length !== 4
+          ? 'Waiting for players...'
+          : 'Game Starting'}
+      </div>
     </div>
   );
 };

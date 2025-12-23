@@ -1,0 +1,144 @@
+/* GameScreen.module.css - Fully Responsive Raja Mantri Chor Sipahi Theme */
+
+.container {
+  min-height: 100vh;
+  background-color: #2c2c2c;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* ---------- TITLE ---------- */
+.title {
+  font-size: 2.2rem;
+  color: #ffd700;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* ---------- ROLE CARD ---------- */
+.roleCard {
+  background-color: #3a3a3a;
+  border: 1px solid #555555;
+  border-radius: 12px;
+  padding: 25px 40px;
+  text-align: center;
+  margin-bottom: 25px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.roleText {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* ---------- QUESTION BOX ---------- */
+.questionBox {
+  background-color: #3a3a3a;
+  border: 1px solid #555555;
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.questionText {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #cccccc;
+}
+
+/* ---------- BUTTONS ---------- */
+.buttonGroup {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.button {
+  padding: 12px 28px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.yesButton {
+  background-color: #ffd700;
+  color: #2c2c2c;
+}
+
+.yesButton:hover {
+  background-color: #e6c200;
+}
+
+.noButton {
+  background-color: #ff6b6b;
+  color: #ffffff;
+}
+
+.noButton:hover {
+  background-color: #e25555;
+}
+
+/* ---------- LOADING ---------- */
+.loading {
+  font-size: 1.2rem;
+  color: #cccccc;
+}
+
+/* ===============================
+   📱 MOBILE (≤ 480px)
+   =============================== */
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .roleText {
+    font-size: 1.6rem;
+  }
+
+  .roleCard,
+  .questionBox {
+    padding: 20px;
+  }
+
+  .questionText {
+    font-size: 1.05rem;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .button {
+    width: 100%;
+    font-size: 1rem;
+  }
+}
+
+/* ===============================
+   📱 TABLET (481px – 768px)
+   =============================== */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .roleText {
+    font-size: 1.8rem;
+  }
+}

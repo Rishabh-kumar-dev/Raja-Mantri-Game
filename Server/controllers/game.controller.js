@@ -48,3 +48,14 @@ exports.getRoundsData = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+exports.clearDatabase = async (req, res) => {
+  try {
+    const mantriAnswered = await gameService.clearDatabase();
+    res.status(200).json({
+      success: true,
+      message: "Game restarted successfully. All data cleared."
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

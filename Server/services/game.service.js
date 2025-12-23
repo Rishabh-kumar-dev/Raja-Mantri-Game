@@ -134,3 +134,10 @@ exports.getAllRounds = async (req, res) => {
       .sort({ roundNumber: 1 })
       .populate("players.player", "name");
 };
+exports.clearDatabase = async (req, res) => {
+    return await Promise.all([
+      Player.deleteMany({}),
+      Game.deleteMany({}),
+      Round.deleteMany({})
+    ]);
+};

@@ -2,21 +2,29 @@ import React, { useEffect, useState } from 'react';
 import useAPI from '../../hooks/useAPI';
 import apiRoutes from '../apiroutes';
 import { useNavigate } from 'react-router-dom';
+import styles from './Scores.module.css';
 
 const Scores = () => {
   const { loading, callAPI } = useAPI();
   const navigate = useNavigate();
 
   const [rounds, setRounds] = useState([]);
+  const [players, setPlayers] = useState([]);
   const [totals, setTotals] = useState({});
 
   useEffect(() => {
     const fetchRounds = async () => {
       try {
         const response = await callAPI(apiRoutes.getRoundsData, 'GET');
-        console.log(response)
-        setRounds(response.data);
-        calculateTotals(response.data);
+        const roundsData = response.data;
+
+        setRounds(roundsData);
+
+        // ✅ Extract player names from first round
+        const playerNames = roundsData[0]?.players.map(p => p.name) || [];
+        setPlayers(playerNames);
+
+        calculateTotals(roundsData);
       } catch (error) {
         console.error(error);
       }
@@ -25,7 +33,7 @@ const Scores = () => {
     fetchRounds();
   }, []);
 
-  // 🔥 TOTAL SCORE LOGIC
+  // ✅ Calculate totals per player
   const calculateTotals = (roundsData) => {
     const totalScores = {};
 
@@ -45,70 +53,71 @@ const Scores = () => {
     try {
       await callAPI(
         apiRoutes.playAgainClicked,
-        "POST",
-        { id: localStorage.getItem("playerId") }
+        'POST',
+        { id: localStorage.getItem('playerId') }
       );
-      navigate("/lobby");
+      navigate('/lobby');
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div>
-      <h2>Round Scores</h2>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Scores</h1>
 
-      {loading && <p>Loading...</p>}
+      {loading && <p className={styles.loading}>Loading...</p>}
 
-      {!loading && (
+      {!loading && rounds.length > 0 && (
         <>
-          {/* ROUND TABLE */}
-          <table border="1" cellPadding="10">
+        <div className={styles.tableWrapper}>
+          <table className={styles.table}>
             <thead>
               <tr>
                 <th>Round</th>
-                <th>Player</th>
-                <th>Role</th>
-                <th>Score</th>
+                {players.map(player => (
+                  <th key={player}>{player}</th>
+                ))}
               </tr>
             </thead>
 
             <tbody>
-              {rounds.map(round =>
-                round.players.map((player, index) => (
-                  <tr key={`${round.roundNumber}-${index}`}>
-                    <td>{round.roundNumber}</td>
-                    <td>{player.name}</td>
-                    <td>{player.role}</td>
-                    <td>{player.score}</td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+              {/* ✅ ROUND ROWS */}
+              {rounds.map(round => (
+                <tr key={round.roundNumber}>
+                  <td className={styles.roundCell}>
+                    {round.roundNumber}
+                  </td>
 
-          {/* TOTAL SCORES */}
-          <h3>Total Scores</h3>
-          <table border="1" cellPadding="10">
-            <thead>
-              <tr>
-                <th>Player</th>
-                <th>Total Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(totals).map(([name, score]) => (
-                <tr key={name}>
-                  <td>{name}</td>
-                  <td>{score}</td>
+                  {players.map(playerName => {
+                    const playerData = round.players.find(
+                      p => p.name === playerName
+                    );
+                    return (
+                      <td key={playerName}>
+                        {playerData ? playerData.score : 0}
+                      </td>
+                    );
+                  })}
                 </tr>
               ))}
+
+              {/* ✅ TOTAL ROW */}
+              <tr className={styles.totalRow}>
+                <td>Total</td>
+                {players.map(player => (
+                  <td key={player}>{totals[player] || 0}</td>
+                ))}
+              </tr>
             </tbody>
           </table>
+        </div>
         </>
       )}
 
-      <button onClick={handleNextRoundClicked}>Play Again</button>
+      <button className={styles.button} onClick={handleNextRoundClicked}>
+        Play Again
+      </button>
     </div>
   );
 };

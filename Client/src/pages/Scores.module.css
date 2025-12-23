@@ -1,0 +1,112 @@
+/* Scores.module.css */
+
+.container {
+  min-height: 100vh;
+  background-color: #2c2c2c;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 2.2rem;
+  color: #ffd700;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* ✅ TABLE SCROLL WRAPPER */
+.tableWrapper {
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+/* Optional smooth scroll */
+.tableWrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 10px;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 600px; /* 👈 forces scroll on small screens */
+  max-width: 700px;
+  background-color: #3a3a3a;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  border: 1px solid #555555;
+  padding: 12px;
+  text-align: center;
+  white-space: nowrap; /* 👈 prevents text wrap */
+}
+
+.table th {
+  background-color: #444444;
+  color: #ffd700;
+  font-weight: bold;
+}
+
+.roundCell {
+  font-weight: bold;
+  color: #cccccc;
+}
+
+.totalRow {
+  background-color: #444444;
+  font-weight: bold;
+}
+
+.button {
+  margin-top: 20px;
+  padding: 12px 30px;
+  border-radius: 8px;
+  border: none;
+  background-color: #ffd700;
+  color: #2c2c2c;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #e6c200;
+}
+
+.loading {
+  color: #cccccc;
+  font-size: 1.2rem;
+}
+
+/* ===============================
+   📱 MOBILE (≤ 480px)
+   =============================== */
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .button {
+    width: 100%;
+    font-size: 1rem;
+  }
+}

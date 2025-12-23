@@ -7,6 +7,6 @@ router.get("/didMantriAnswered", gameController.didMantriAnswered);
 router.post("/nextRoundClicked", gameController.nextRoundClicked);
 router.post("/getYourRole", gameController.getYourRole);
 router.get("/rounds", gameController.getRoundsData);
-router.get("/restart", gameController.clearDatabase);
+router.get("/restart-game", gameController.clearDatabase);
 
 module.exports = router
